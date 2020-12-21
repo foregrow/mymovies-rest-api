@@ -45,7 +45,7 @@ public class AuthController {
 				.loadUserByUsername(authenticationRequest.getEmail());
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
-		String role = "";
+		String role = "ERROR";
 		for (GrantedAuthority authority : userDetails.getAuthorities())
 			role = authority.getAuthority();
 		

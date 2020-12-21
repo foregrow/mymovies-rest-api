@@ -47,8 +47,8 @@ public class TrailerServiceImpl implements TrailerService {
 	}
 
 	@Override
-	public void update(TrailerDTO obj) {
-		// TODO Auto-generated method stub
+	public Trailer update(TrailerDTO obj) {
+		return null;
 		
 	}
 

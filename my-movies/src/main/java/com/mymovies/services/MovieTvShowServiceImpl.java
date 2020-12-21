@@ -55,8 +55,22 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	}
 
 	@Override
-	public void update(MovieTvShowDTO obj) {
-		// TODO Auto-generated method stub
+	public MovieTvShow update(MovieTvShowDTO obj) {
+		if(obj!=null) {
+			MovieTvShow mts = getById(obj.getId());
+			if(mts!=null) {
+				mts.setName(obj.getName());
+				mts.setDescription(obj.getDescription());
+				mts.setStoryline(obj.getStoryline());
+				mts.setLengthMinutes(obj.getLengthMinutes());
+				mts.setReleaseDate(obj.getReleaseDate());
+				mts.setReleaseYear(obj.getReleaseYear());
+				mts.setCountry(obj.getCountry());
+				mts.setLanguage(obj.getLanguage());
+				return mtsr.save(mts);
+			}
+		}
+		return null;
 		
 	}
 

@@ -5,6 +5,10 @@ package com.mymovies.web.controllers;
 import java.util.List;
 
 
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,67 +19,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mymovies.models.Genre;
-import com.mymovies.services.GenreService;
-import com.mymovies.web.dtos.GenreDTO;
+import com.mymovies.models.Season;
+import com.mymovies.services.SeasonService;
+import com.mymovies.web.dtos.SeasonDTO;
 
 
 
 @RestController
 @CrossOrigin(origins ="*",allowedHeaders = "*")
-@RequestMapping(value="api/genres")
-public class GenreController {
+@RequestMapping(value="api/seasons")
+public class SeasonController {
 	
 
 	@Autowired
-	GenreService gs;
+	SeasonService ss;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
-		List<Genre> genres = gs.getAll();	
-		List<GenreDTO> dtos = gs.getAllDTOs(genres);		
+		List<Season> seasons = ss.getAll();	
+		List<SeasonDTO> dtos = ss.getAllDTOs(seasons);		
 		
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		Season obj = ss.getById(id);
 		
 		if(obj == null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO dto = gs.getSingleDTO(obj);
+		SeasonDTO dto = ss.getSingleDTO(obj);
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<?> save(@RequestBody GenreDTO dto){
+	public ResponseEntity<?> save(@RequestBody SeasonDTO dto){
 
-		Genre obj = gs.create(dto);
+		Season obj = ss.create(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		SeasonDTO responseObj = ss.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<?> update(@RequestBody GenreDTO dto){
-		Genre obj = gs.update(dto);
+	public ResponseEntity<?> update(@RequestBody SeasonDTO dto){
+		Season obj = ss.update(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		SeasonDTO responseObj = ss.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		Season obj = ss.getById(id);
 		if (obj != null){
-			gs.deleteById(id);
-			List<Genre> objs = gs.getAll();
-			List<GenreDTO> dtos = gs.getAllDTOs(objs);
+			ss.deleteById(id);
+			List<Season> objs = ss.getAll();
+			List<SeasonDTO> dtos = ss.getAllDTOs(objs);
 			
 			return new ResponseEntity<>(dtos, HttpStatus.OK);
 		} else		

@@ -56,16 +56,17 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void update(PersonDTO obj) {
+	public Person update(PersonDTO obj) {
 		if(obj!=null) {
 			Person person = getById(obj.getId());
 			if(person!=null) {
 				person.setFirstName(obj.getFirstName());
 				person.setLastName(obj.getLastName());
 				person.setBio(obj.getBio());
-				pr.save(person);
+				return pr.save(person);
 			}	
 		}
+		return null;
 		
 	}
 

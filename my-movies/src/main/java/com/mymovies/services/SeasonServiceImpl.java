@@ -56,8 +56,16 @@ public class SeasonServiceImpl implements SeasonService {
 	}
 
 	@Override
-	public void update(SeasonDTO obj) {
-		// TODO Auto-generated method stub
+	public Season update(SeasonDTO obj) {
+		if(obj!=null) {
+			Season season = getById(obj.getId());
+			if(season!=null) {
+				season.setReleaseYear(obj.getReleaseYear());
+				season.setSerialNumber(obj.getSerialNumber());
+				return sr.save(season);
+			}
+		}
+		return null;
 		
 	}
 

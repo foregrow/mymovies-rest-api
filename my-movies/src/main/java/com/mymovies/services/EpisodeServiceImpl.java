@@ -68,12 +68,13 @@ public class EpisodeServiceImpl implements EpisodeService {
 	}
 
 	@Override
-	public void update(EpisodeDTO obj) {
+	public Episode update(EpisodeDTO obj) {
 		Episode ep = getById(obj.getId());
 		if(ep!=null) {
 			ep.setName(obj.getName());
-			er.save(ep);
+			return er.save(ep);
 		}
+		return null;
 		
 	}
 

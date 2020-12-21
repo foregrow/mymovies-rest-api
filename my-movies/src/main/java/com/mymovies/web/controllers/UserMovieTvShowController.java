@@ -1,7 +1,4 @@
 package com.mymovies.web.controllers;
-
-
-
 import java.util.List;
 
 
@@ -15,67 +12,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mymovies.models.Genre;
-import com.mymovies.services.GenreService;
-import com.mymovies.web.dtos.GenreDTO;
+import com.mymovies.models.UserMovieTvShow;
+import com.mymovies.services.UserMovieTvShowService;
+import com.mymovies.web.dtos.UserMovieTvShowDTO;
 
 
 
 @RestController
 @CrossOrigin(origins ="*",allowedHeaders = "*")
-@RequestMapping(value="api/genres")
-public class GenreController {
+@RequestMapping(value="api/usermts")
+public class UserMovieTvShowController {
 	
 
 	@Autowired
-	GenreService gs;
+	UserMovieTvShowService umtss;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
-		List<Genre> genres = gs.getAll();	
-		List<GenreDTO> dtos = gs.getAllDTOs(genres);		
+		List<UserMovieTvShow> usermoviestvshows = umtss.getAll();	
+		List<UserMovieTvShowDTO> dtos = umtss.getAllDTOs(usermoviestvshows);		
 		
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		UserMovieTvShow obj = umtss.getById(id);
 		
 		if(obj == null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO dto = gs.getSingleDTO(obj);
+		UserMovieTvShowDTO dto = umtss.getSingleDTO(obj);
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<?> save(@RequestBody GenreDTO dto){
+	public ResponseEntity<?> save(@RequestBody UserMovieTvShowDTO dto){
 
-		Genre obj = gs.create(dto);
+		UserMovieTvShow obj = umtss.create(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		UserMovieTvShowDTO responseObj = umtss.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<?> update(@RequestBody GenreDTO dto){
-		Genre obj = gs.update(dto);
+	public ResponseEntity<?> update(@RequestBody UserMovieTvShowDTO dto){
+		UserMovieTvShow obj = umtss.update(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		UserMovieTvShowDTO responseObj = umtss.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		UserMovieTvShow obj = umtss.getById(id);
 		if (obj != null){
-			gs.deleteById(id);
-			List<Genre> objs = gs.getAll();
-			List<GenreDTO> dtos = gs.getAllDTOs(objs);
+			umtss.deleteById(id);
+			List<UserMovieTvShow> objs = umtss.getAll();
+			List<UserMovieTvShowDTO> dtos = umtss.getAllDTOs(objs);
 			
 			return new ResponseEntity<>(dtos, HttpStatus.OK);
 		} else		

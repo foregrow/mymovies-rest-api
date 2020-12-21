@@ -8,4 +8,5 @@ import com.mymovies.models.UserMovieTvShow;
 
 public interface UserMovieTvShowRepository extends JpaRepository< UserMovieTvShow, Long> {
 
+	UserMovieTvShow findByUserEmailAndMovieTvShowId(String email, long mtsid);
 }

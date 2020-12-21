@@ -1,7 +1,5 @@
 package com.mymovies.web.controllers;
 
-
-
 import java.util.List;
 
 
@@ -15,67 +13,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mymovies.models.Genre;
-import com.mymovies.services.GenreService;
-import com.mymovies.web.dtos.GenreDTO;
+import com.mymovies.models.Person;
+import com.mymovies.services.PersonService;
+import com.mymovies.web.dtos.PersonDTO;
 
 
 
 @RestController
 @CrossOrigin(origins ="*",allowedHeaders = "*")
-@RequestMapping(value="api/genres")
-public class GenreController {
+@RequestMapping(value="api/persons")
+public class PersonController {
 	
 
 	@Autowired
-	GenreService gs;
+	PersonService ps;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
-		List<Genre> genres = gs.getAll();	
-		List<GenreDTO> dtos = gs.getAllDTOs(genres);		
+		List<Person> persons = ps.getAll();	
+		List<PersonDTO> dtos = ps.getAllDTOs(persons);		
 		
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		Person obj = ps.getById(id);
 		
 		if(obj == null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO dto = gs.getSingleDTO(obj);
+		PersonDTO dto = ps.getSingleDTO(obj);
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
-	public ResponseEntity<?> save(@RequestBody GenreDTO dto){
+	public ResponseEntity<?> save(@RequestBody PersonDTO dto){
 
-		Genre obj = gs.create(dto);
+		Person obj = ps.create(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		PersonDTO responseObj = ps.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")
-	public ResponseEntity<?> update(@RequestBody GenreDTO dto){
-		Genre obj = gs.update(dto);
+	public ResponseEntity<?> update(@RequestBody PersonDTO dto){
+		Person obj = ps.update(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		GenreDTO responseObj = gs.getSingleDTO(obj);
+		PersonDTO responseObj = ps.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable long id){
-		Genre obj = gs.getById(id);
+		Person obj = ps.getById(id);
 		if (obj != null){
-			gs.deleteById(id);
-			List<Genre> objs = gs.getAll();
-			List<GenreDTO> dtos = gs.getAllDTOs(objs);
+			ps.deleteById(id);
+			List<Person> objs = ps.getAll();
+			List<PersonDTO> dtos = ps.getAllDTOs(objs);
 			
 			return new ResponseEntity<>(dtos, HttpStatus.OK);
 		} else		

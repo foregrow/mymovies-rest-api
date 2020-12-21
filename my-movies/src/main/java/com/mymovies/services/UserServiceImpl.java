@@ -3,6 +3,8 @@ package com.mymovies.services;
 import java.util.ArrayList;
 
 
+
+
 import java.util.List;
 
 
@@ -14,8 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.mymovies.models.Photo;
 import com.mymovies.models.User;
 import com.mymovies.repositories.UserRepository;
+import com.mymovies.utils.PasswordBCrypt;
 import com.mymovies.web.dtos.UserDTO;
 
 @Service
@@ -27,6 +31,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	FactoryEntityService fe;
 
+	@Autowired
+	PhotoService ps;
+	
 	@Override
 	public List<User> getAll() {
 		return ur.findAll();
@@ -39,7 +46,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User create(UserDTO obj) {
-		// TODO Auto-generated method stub
+		if(obj!=null) {
+			User user = (User) fe.getEntityByDTO(obj);
+			user.setEmail(obj.getEmail());
+			user.setPassword(PasswordBCrypt.hashPassword(obj.getPassword()));
+			user.setUserRole(obj.getUserRole());
+			return ur.save(user);
+		}
 		return null;
 	}
 
@@ -50,8 +63,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(UserDTO obj) {
-		// TODO Auto-generated method stub
+	public User update(UserDTO obj) {
+		if(obj.getPhoto()!=null) {
+			User user = findByEmail(obj.getEmail());
+			Photo photo = ps.create(obj.getPhoto());
+			if(user!=null&&photo!=null) {
+				user.setPhoto(photo);
+				return ur.save(user);
+			}
+		}
+		return null;
 		
 	}
 	

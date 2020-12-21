@@ -49,8 +49,8 @@ public class GenreServiceImpl implements GenreService {
 	}
 
 	@Override
-	public void update(GenreDTO obj) {
-		
+	public Genre update(GenreDTO obj) {
+		return null;
 		
 	}
 

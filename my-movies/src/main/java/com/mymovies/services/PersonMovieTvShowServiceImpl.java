@@ -69,8 +69,20 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 	}
 
 	@Override
-	public void update(PersonMovieTvShowDTO obj) {
-		// TODO Auto-generated method stub
+	public PersonMovieTvShow update(PersonMovieTvShowDTO obj) {
+		if(obj!=null&&obj.getMovieTvShow()!=null&&obj.getPerson()!=null) {
+			PersonMovieTvShow pm = findByPersonIdAndMovieTvShowId(obj.getPerson().getId(), obj.getMovieTvShow().getId());
+			if(pm!=null) {
+				pm.setCastName(obj.getCastName());
+				pm.setDirector(obj.isDirector());
+				pm.setActor(obj.isActor());
+				pm.setWriter(obj.isWriter());
+				pm.setComposer(obj.isComposer());
+				pm.setActorRole(obj.getActorRole());
+				return pmtsr.save(pm);
+			}
+		}
+		return null;
 		
 	}
 
@@ -89,6 +101,11 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 	public PersonMovieTvShowDTO getSingleDTO(PersonMovieTvShow obj) {
 		PersonMovieTvShowDTO dto = new PersonMovieTvShowDTO(obj);
 		return dto;
+	}
+
+	@Override
+	public PersonMovieTvShow findByPersonIdAndMovieTvShowId(long pid, long mtsid) {
+		return pmtsr.findByPersonIdAndMovieTvShowId(pid, mtsid);
 	}
 	
 	

@@ -44,8 +44,8 @@ public class PhotoServiceImpl implements PhotoService {
 	}
 
 	@Override
-	public void update(PhotoDTO obj) {
-		// TODO Auto-generated method stub
+	public Photo update(PhotoDTO obj) {
+		return null;
 		
 	}
 
