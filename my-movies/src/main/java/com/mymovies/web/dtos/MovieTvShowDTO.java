@@ -176,7 +176,9 @@ public class MovieTvShowDTO {
 
 	public void setSeasons(Set<Season> seasons) {
 		for(Season obj : seasons) {
-			this.seasons.add(new SeasonDTO(obj));
+			SeasonDTO dto = new SeasonDTO(obj);
+			dto.setEpisodes(obj.getEpisodes());
+			this.seasons.add(dto);
 		}
 	}
 

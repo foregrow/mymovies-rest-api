@@ -24,6 +24,7 @@ public class SeasonDTO {
 		releaseYear = obj.getReleaseYear();
 		if(obj.getMovieTvShow()!=null)
 			movieTvShow = new MovieTvShowDTO(obj.getMovieTvShow());
+		
 	}
 	public SeasonDTO() {}
 	

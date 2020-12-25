@@ -101,7 +101,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 
 	@Override
 	public MovieTvShowDTO getSingleDTO(MovieTvShow obj) {
-		MovieTvShowDTO dto = new MovieTvShowDTO();
+		MovieTvShowDTO dto = new MovieTvShowDTO(obj);
 		dto.setTrailers(obj.getTrailers());
 		dto.setSeasons(obj.getSeasons());
 		dto.setEpisodes(obj.getEpisodes());

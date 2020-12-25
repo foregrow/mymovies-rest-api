@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,6 @@ public class MovieTvShowController {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
 		MovieTvShow obj = mtss.getById(id);
-		
 		if(obj == null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
