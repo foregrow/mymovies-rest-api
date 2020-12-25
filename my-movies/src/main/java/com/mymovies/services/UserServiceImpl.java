@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	UserRepository ur;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Autowired
 	PhotoService ps;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(UserDTO obj) {
 		if(obj!=null) {
-			User user = (User) fe.getEntityByDTO(obj);
+			User user = (User) eis.getEntityByDTO(obj);
 			user.setEmail(obj.getEmail());
 			user.setPassword(PasswordBCrypt.hashPassword(obj.getPassword()));
 			user.setUserRole(obj.getUserRole());

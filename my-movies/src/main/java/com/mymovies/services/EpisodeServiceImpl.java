@@ -28,7 +28,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 	MovieTvShowService mtss;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 	
 	@Override
 	public List<Episode> getAll() {
@@ -48,7 +48,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			Season s = ss.getById(obj.getSeason().getId());
 			if(mts!=null&&s!=null) {
-				Episode es = (Episode) fe.getEntityByDTO(obj);
+				Episode es = (Episode) eis.getEntityByDTO(obj);
 				es.setSerialNumber(obj.getSerialNumber());
 				es.setName(obj.getName());
 				es.setMovieTvShow(mts);

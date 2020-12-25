@@ -27,7 +27,7 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 	PersonService ps;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Override
 	public List<PersonMovieTvShow> getAll() {
@@ -46,7 +46,7 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			Person person = ps.getById(obj.getPerson().getId());
 			if(mts!=null&&person!=null) {
-				PersonMovieTvShow pm = (PersonMovieTvShow) fe.getEntityByDTO(obj);
+				PersonMovieTvShow pm = (PersonMovieTvShow) eis.getEntityByDTO(obj);
 				pm.setCastName(obj.getCastName());
 				pm.setDirector(obj.isDirector());
 				pm.setActor(obj.isActor());

@@ -22,7 +22,7 @@ public class SeasonServiceImpl implements SeasonService {
 	MovieTvShowService mtss;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Override
 	public List<Season> getAll() {
@@ -39,7 +39,7 @@ public class SeasonServiceImpl implements SeasonService {
 		if(obj!=null&&obj.getMovieTvShow()!=null) {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			if(mts!=null) {
-				Season s = (Season) fe.getEntityByDTO(obj);
+				Season s = (Season) eis.getEntityByDTO(obj);
 				s.setSerialNumber(obj.getSerialNumber());
 				s.setReleaseYear(obj.getReleaseYear());
 				s.setMovieTvShow(mts);

@@ -18,7 +18,7 @@ public class GenreServiceImpl implements GenreService {
 	GenreRepository gr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Override
 	public List<Genre> getAll() {
@@ -34,7 +34,7 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public Genre create(GenreDTO obj) {
 		if(obj!=null) {
-			Genre genre = (Genre) fe.getEntityByDTO(obj);
+			Genre genre = (Genre) eis.getEntityByDTO(obj);
 			genre.setType(obj.getType());
 			
 			return gr.save(genre);

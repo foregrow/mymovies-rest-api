@@ -26,7 +26,7 @@ import com.mymovies.web.dtos.UserMovieTvShowDTO;
 
 
 @Service
-public class FactoryEntityService {
+public class EntityInstanceService {
 
 	public Object getEntityByDTO(Object obj){
 		if(obj!=null) {

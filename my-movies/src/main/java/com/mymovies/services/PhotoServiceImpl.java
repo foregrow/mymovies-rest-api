@@ -19,7 +19,7 @@ public class PhotoServiceImpl implements PhotoService {
 	PhotoRepository pr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Override
 	public List<Photo> getAll() {

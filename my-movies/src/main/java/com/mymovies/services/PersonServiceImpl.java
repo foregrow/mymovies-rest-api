@@ -20,7 +20,7 @@ public class PersonServiceImpl implements PersonService {
 	PersonRepository pr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService fe;
 	
 	@Override
 	public List<Person> getAll() {
@@ -63,6 +63,8 @@ public class PersonServiceImpl implements PersonService {
 				person.setFirstName(obj.getFirstName());
 				person.setLastName(obj.getLastName());
 				person.setBio(obj.getBio());
+				person.setBornDate(obj.getBornDate());
+				person.setDiedDate(obj.getDiedDate());
 				return pr.save(person);
 			}	
 		}

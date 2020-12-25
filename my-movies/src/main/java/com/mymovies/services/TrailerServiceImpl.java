@@ -22,7 +22,7 @@ public class TrailerServiceImpl implements TrailerService {
 	TrailerRepository tr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 
 	@Override
 	public List<Trailer> getAll() {

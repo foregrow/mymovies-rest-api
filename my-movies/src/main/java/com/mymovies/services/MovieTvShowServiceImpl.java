@@ -2,11 +2,13 @@ package com.mymovies.services;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.repositories.MovieTvShowRepository;
 import com.mymovies.web.dtos.MovieTvShowDTO;
@@ -17,11 +19,16 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	MovieTvShowRepository mtsr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 	
 	@Override
 	public List<MovieTvShow> getAll() {
 		return mtsr.findAll();
+	}
+	
+	@Override
+	public List<MovieTvShow> findAllByType(MovieTvShowType type) {
+		return mtsr.findAllByType(type);
 	}
 
 	@Override
@@ -32,7 +39,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	@Override
 	public MovieTvShow create(MovieTvShowDTO obj) {
 		if(obj!=null) {
-			MovieTvShow mts = (MovieTvShow) fe.getEntityByDTO(obj);
+			MovieTvShow mts = (MovieTvShow) eis.getEntityByDTO(obj);
 			mts.setName(obj.getName());
 			mts.setDescription(obj.getDescription());
 			mts.setStoryline(obj.getStoryline());
@@ -105,4 +112,5 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 		return dto;
 	}
 
+	
 }

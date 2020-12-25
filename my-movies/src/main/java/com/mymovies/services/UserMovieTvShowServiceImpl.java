@@ -21,7 +21,7 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	UserMovieTvShowRepository umtsr;
 	
 	@Autowired
-	FactoryEntityService fe;
+	EntityInstanceService eis;
 	
 	@Autowired
 	MovieTvShowService mtss;
@@ -46,7 +46,7 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			User user = us.getById(obj.getUser().getId());
 			if(mts!=null&&user!=null) {
-				UserMovieTvShow umts = (UserMovieTvShow) fe.getEntityByDTO(obj);
+				UserMovieTvShow umts = (UserMovieTvShow) eis.getEntityByDTO(obj);
 				umts.setUserRating(obj.getUserRating());
 				umts.setWatchLater(obj.isWatchLater());
 				umts.setWatchlist(obj.isWatchlist());
