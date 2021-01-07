@@ -93,6 +93,11 @@ public class PersonServiceImpl implements PersonService {
 		return dto;
 	}
 
+	@Override
+	public List<Person> findAllPersonsNotInMTS(long mtsid) {
+		return pr.findAllPersonsNotInMTS(mtsid);
+	}
+
 	
 	
 	

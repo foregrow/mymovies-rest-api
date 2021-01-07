@@ -36,6 +36,14 @@ public class PersonController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/notinmts/{mtsid}", method=RequestMethod.GET)
+	public ResponseEntity<?> getAllNotInMTS(@PathVariable long mtsid) {
+		List<Person> persons = ps.findAllPersonsNotInMTS(mtsid);	
+		List<PersonDTO> dtos = ps.getAllDTOs(persons);		
+		
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
 		Person obj = ps.getById(id);

@@ -107,6 +107,16 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 	public PersonMovieTvShow findByPersonIdAndMovieTvShowId(long pid, long mtsid) {
 		return pmtsr.findByPersonIdAndMovieTvShowId(pid, mtsid);
 	}
+
+	@Override
+	public List<PersonMovieTvShow> findByMovieTvShowId(long mtsid) {
+		return pmtsr.findByMovieTvShowId(mtsid);
+	}
+
+	@Override
+	public List<PersonMovieTvShow> findByPersonId(long pid) {
+		return pmtsr.findByPersonId(pid);
+	}
 	
 	
 

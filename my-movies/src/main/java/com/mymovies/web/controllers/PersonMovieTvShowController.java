@@ -47,6 +47,14 @@ public class PersonMovieTvShowController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/movietvshow/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> getByMTSId(@PathVariable long id){
+		List<PersonMovieTvShow> personmts = pmtss.findByMovieTvShowId(id);	
+		List<PersonMovieTvShowDTO> dtos = pmtss.getAllDTOs(personmts);	
+		
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody PersonMovieTvShowDTO dto){
 
