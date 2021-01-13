@@ -98,6 +98,12 @@ public class PersonServiceImpl implements PersonService {
 		return pr.findAllPersonsNotInMTS(mtsid);
 	}
 
+	@Override
+	public List<Person> findAllByIdIsNot(long mtsid) {
+		return pr.findAllByIdIsNot(mtsid);
+	}
+
+
 	
 	
 	

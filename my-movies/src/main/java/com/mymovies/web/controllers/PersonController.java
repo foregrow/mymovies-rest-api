@@ -44,6 +44,18 @@ public class PersonController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/byidisnot/{mtsid}", method=RequestMethod.GET)
+	public ResponseEntity<?> getAllByIdIsNot(@PathVariable long mtsid) {
+		List<Person> persons = ps.findAllByIdIsNot(mtsid);	
+		List<PersonDTO> dtos = ps.getAllDTOs(persons);		
+		
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id){
 		Person obj = ps.getById(id);

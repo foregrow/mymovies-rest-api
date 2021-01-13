@@ -15,4 +15,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 	
 	@Query("select pp from Person pp where pp.id not in (select p.id from Person p, PersonMovieTvShow pmts where p.id=pmts.person.id AND pmts.movieTvShow.id = :mtsid)")
 	List<Person> findAllPersonsNotInMTS(long mtsid);
+	
+	List<Person> findAllByIdIsNot(long mtsid);
+	
 }
