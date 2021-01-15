@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.models.Person;
 import com.mymovies.repositories.PersonRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.PersonService;
 import com.mymovies.web.dtos.PersonDTO;
 @Service
 public class PersonServiceImpl implements PersonService {

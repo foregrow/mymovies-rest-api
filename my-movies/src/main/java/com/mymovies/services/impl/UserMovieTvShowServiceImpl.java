@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,10 @@ import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.User;
 import com.mymovies.models.UserMovieTvShow;
 import com.mymovies.repositories.UserMovieTvShowRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.MovieTvShowService;
+import com.mymovies.services.UserMovieTvShowService;
+import com.mymovies.services.UserService;
 import com.mymovies.web.dtos.UserMovieTvShowDTO;
 @Service
 

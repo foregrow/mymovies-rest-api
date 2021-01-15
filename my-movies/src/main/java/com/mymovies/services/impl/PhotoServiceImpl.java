@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.models.Photo;
 import com.mymovies.repositories.PhotoRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.PhotoService;
 import com.mymovies.web.dtos.PhotoDTO;
 @Service
 public class PhotoServiceImpl implements PhotoService {

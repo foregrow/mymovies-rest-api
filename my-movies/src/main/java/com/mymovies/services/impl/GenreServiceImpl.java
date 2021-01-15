@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.models.Genre;
 import com.mymovies.repositories.GenreRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.GenreService;
 import com.mymovies.web.dtos.GenreDTO;
 @Service
 public class GenreServiceImpl implements GenreService {

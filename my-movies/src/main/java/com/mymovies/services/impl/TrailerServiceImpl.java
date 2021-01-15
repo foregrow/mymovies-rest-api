@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.models.Trailer;
 import com.mymovies.repositories.TrailerRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.TrailerService;
 import com.mymovies.web.dtos.TrailerDTO;
 @Service
 

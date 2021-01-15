@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.repositories.MovieTvShowRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.MovieTvShowService;
 import com.mymovies.web.dtos.MovieTvShowDTO;
 @Service
 public class MovieTvShowServiceImpl implements MovieTvShowService {

@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 import com.mymovies.models.Photo;
 import com.mymovies.models.User;
 import com.mymovies.repositories.UserRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.PhotoService;
+import com.mymovies.services.UserService;
 import com.mymovies.utils.PasswordBCrypt;
 import com.mymovies.web.dtos.UserDTO;
 

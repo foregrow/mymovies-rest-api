@@ -1,4 +1,4 @@
-package com.mymovies.services;
+package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Season;
 import com.mymovies.repositories.SeasonRepository;
+import com.mymovies.services.EntityInstanceService;
+import com.mymovies.services.MovieTvShowService;
+import com.mymovies.services.SeasonService;
 import com.mymovies.web.dtos.SeasonDTO;
 @Service
 public class SeasonServiceImpl implements SeasonService {
