@@ -38,8 +38,12 @@ public class TrailerServiceImpl implements TrailerService {
 
 	@Override
 	public Trailer create(TrailerDTO obj) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void save(Trailer t) {
+		tr.save(t);
 	}
 
 	@Override

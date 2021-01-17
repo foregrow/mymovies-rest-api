@@ -3,6 +3,7 @@ package com.mymovies.services.impl;
 import java.util.ArrayList;
 
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.MovieTvShow;
+import com.mymovies.models.Trailer;
 import com.mymovies.repositories.MovieTvShowRepository;
 import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.MovieTvShowService;
+import com.mymovies.services.TrailerService;
 import com.mymovies.web.dtos.MovieTvShowDTO;
+import com.mymovies.web.dtos.TrailerDTO;
 @Service
 public class MovieTvShowServiceImpl implements MovieTvShowService {
 
@@ -22,6 +26,9 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	
 	@Autowired
 	EntityInstanceService eis;
+	
+	@Autowired
+	TrailerService ts;
 	
 	@Override
 	public List<MovieTvShow> getAll() {
@@ -51,8 +58,18 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 			mts.setType(obj.getType());
 			mts.setCountry(obj.getCountry());
 			mts.setLanguage(obj.getLanguage());
-			
-			return mtsr.save(mts);
+			mtsr.save(mts);
+			if(obj.getTrailers().size()>0) {
+				Trailer t = null;
+				for(TrailerDTO tdto : obj.getTrailers()) {
+					t = new Trailer();
+					t.setName(mts.getName());
+					t.setPath(tdto.getPath());
+					t.setMovieTvShow(mts);
+					ts.save(t);
+				}
+			}
+			return mts;
 		}
 		return null;
 	}
