@@ -105,6 +105,11 @@ public class PersonServiceImpl implements PersonService {
 		return pr.findAllByIdIsNot(mtsid);
 	}
 
+	@Override
+	public List<Person> findByFirstNameOrLastNameContains(String value) {
+		return pr.findByFirstNameContainsOrLastNameContains(value,value);
+	}
+
 
 	
 	

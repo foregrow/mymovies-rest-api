@@ -131,5 +131,10 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 		return dto;
 	}
 
+	@Override
+	public List<MovieTvShow> findAllByNameContains(String name) {
+		return mtsr.findByNameContains(name);
+	}
+
 	
 }

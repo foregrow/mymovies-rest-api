@@ -34,6 +34,14 @@ public class MovieTvShowController {
 	int MOVIE = MovieTvShowType.MOVIE.ordinal();
 	int TV_SHOW = MovieTvShowType.TV_SHOW.ordinal();
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> getAll() {
+		List<MovieTvShow> moviestvshows = mtss.getAll();	
+		List<MovieTvShowDTO> dtos = mtss.getAllDTOs(moviestvshows);		
+		
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/movies",method = RequestMethod.GET)
 	public ResponseEntity<?> getAllMovies() {
 		List<MovieTvShow> moviestvshows = mtss.findAllByType(MovieTvShowType.MOVIE);	
@@ -50,8 +58,19 @@ public class MovieTvShowController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> getById(@PathVariable long id){
+	@RequestMapping(value="/namecontains/{name}",method = RequestMethod.GET)
+	public ResponseEntity<?> getAllByNameContains(@PathVariable String name) {
+
+		List<MovieTvShow> moviestvshows = mtss.findAllByNameContains(name);	
+		List<MovieTvShowDTO> dtos = mtss.getAllDTOs(moviestvshows);		
+		System.out.println(dtos.size());
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value={"/{id}","/{id}/{type}"}, method=RequestMethod.GET)
+	public ResponseEntity<?> getById(@PathVariable long id,@PathVariable(required = false) String type){
+		
 		MovieTvShow obj = mtss.getById(id);
 		if(obj == null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);

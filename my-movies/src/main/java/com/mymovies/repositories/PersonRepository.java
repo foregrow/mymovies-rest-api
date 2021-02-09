@@ -18,4 +18,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 	
 	List<Person> findAllByIdIsNot(long mtsid);
 	
+	List<Person> findByFirstNameContainsOrLastNameContains(String value,String value2);
+	 
+	
+	
 }

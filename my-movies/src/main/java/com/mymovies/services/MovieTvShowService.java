@@ -9,4 +9,7 @@ import com.mymovies.web.dtos.MovieTvShowDTO;
 public interface MovieTvShowService extends CrudService<MovieTvShow, MovieTvShowDTO>, DTOService<MovieTvShow, MovieTvShowDTO> {
 
 	List<MovieTvShow> findAllByType(MovieTvShowType type);
+	
+	List<MovieTvShow> findAllByNameContains(String name);
+
 }

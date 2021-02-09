@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Person;
 import com.mymovies.services.PersonService;
+import com.mymovies.web.dtos.MovieTvShowDTO;
 import com.mymovies.web.dtos.PersonDTO;
 
 
@@ -53,11 +55,21 @@ public class PersonController {
 	}
 	
 	
+	@RequestMapping(value="/namecontains/{value}",method = RequestMethod.GET)
+	public ResponseEntity<?> getAllByNameContains(@PathVariable String value) {
+		List<Person> persons = ps.findByFirstNameOrLastNameContains(value);	
+		List<PersonDTO> dtos = ps.getAllDTOs(persons);		
+		System.out.println(dtos.size());
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
 	
 	
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> getById(@PathVariable long id){
+	@RequestMapping(value={"/{id}","/{id}/{type}"}, method=RequestMethod.GET)
+	public ResponseEntity<?> getById(@PathVariable long id,@PathVariable(required = false) String type){
+		/*if(type!=null) {
+			if(!type.equals("person"))
+				return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}*/
 		Person obj = ps.getById(id);
 		
 		if(obj == null)

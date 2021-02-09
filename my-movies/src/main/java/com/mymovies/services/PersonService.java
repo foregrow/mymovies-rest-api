@@ -11,4 +11,6 @@ public interface PersonService extends CrudService<Person, PersonDTO>, DTOServic
 	
 	List<Person> findAllByIdIsNot(long mtsid);
 	
+	List<Person> findByFirstNameOrLastNameContains(String value);
+	
 }
