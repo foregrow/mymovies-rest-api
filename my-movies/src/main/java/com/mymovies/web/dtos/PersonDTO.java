@@ -103,6 +103,7 @@ public class PersonDTO {
 
 	public void setMoviesTvShows(Set<PersonMovieTvShow> moviesTvShows) {
 		for(PersonMovieTvShow obj : moviesTvShows) {
+			
 			this.moviesTvShows.add(new PersonMovieTvShowDTO(obj));
 		}
 	}

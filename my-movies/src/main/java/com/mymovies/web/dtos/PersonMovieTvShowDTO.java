@@ -28,6 +28,7 @@ public class PersonMovieTvShowDTO {
 		actorRole = obj.getActorRole();
 		if(obj.getMovieTvShow()!=null) {
 			movieTvShow = new MovieTvShowDTO(obj.getMovieTvShow());
+			movieTvShow.setPhotos(obj.getMovieTvShow().getPhotos());
 		}
 		if(obj.getPerson()!=null) {
 			person = new PersonDTO(obj.getPerson());
