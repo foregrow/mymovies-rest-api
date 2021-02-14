@@ -1,10 +1,12 @@
 package com.mymovies.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -16,7 +18,10 @@ public class Photo{
 	private long id;
 	private String name;
 	private String path;
-	
+	private String type;
+	@Column(length = 100000)
+	@Lob
+	private byte[] picByte;
 	@ManyToOne
 	private MovieTvShow movieTvShow; //one to many
 	
@@ -30,15 +35,20 @@ public class Photo{
 		
 	}
 
-	public Photo(long id, String name, String path, MovieTvShow movieTvShow, Person person, User user) {
+
+	public Photo(long id, String name, String path, String type, byte[] picByte, MovieTvShow movieTvShow, Person person,
+			User user) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.path = path;
+		this.type = type;
+		this.picByte = picByte;
 		this.movieTvShow = movieTvShow;
 		this.person = person;
 		this.user = user;
 	}
+
 
 	public long getId() {
 		return id;
@@ -63,6 +73,26 @@ public class Photo{
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public byte[] getPicByte() {
+		return picByte;
+	}
+
+
+	public void setPicByte(byte[] picByte) {
+		this.picByte = picByte;
+	}
+
 
 	public MovieTvShow getMovieTvShow() {
 		return movieTvShow;

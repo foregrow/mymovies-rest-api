@@ -6,7 +6,8 @@ public class PhotoDTO {
 	private long id;
 	private String name;
 	private String path;
-	
+	private String type;
+	private byte[] picByte;
 	private MovieTvShowDTO movieTvShow; //one to many
 	private PersonDTO person; //one to many
 	private UserDTO user; //one to one
@@ -16,22 +17,30 @@ public class PhotoDTO {
 		id = obj.getId();
 		name = obj.getName();
 		path = obj.getPath();
-		
+		type = obj.getType();
+		picByte = obj.getPicByte();
 		if(obj.getMovieTvShow()!=null)
 			movieTvShow = new MovieTvShowDTO(obj.getMovieTvShow());
 		if(obj.getPerson()!=null)
 			person = new PersonDTO(obj.getPerson());
 	}
 
-	public PhotoDTO(long id, String name, String path, MovieTvShowDTO movieTvShow, PersonDTO person, UserDTO user) {
+	
+
+	public PhotoDTO(long id, String name, String path, String type, byte[] picByte, MovieTvShowDTO movieTvShow,
+			PersonDTO person, UserDTO user) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.path = path;
+		this.type = type;
+		this.picByte = picByte;
 		this.movieTvShow = movieTvShow;
 		this.person = person;
 		this.user = user;
 	}
+
+
 
 	public PhotoDTO() {
 		// TODO Auto-generated constructor stub
@@ -60,6 +69,26 @@ public class PhotoDTO {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public byte[] getPicByte() {
+		return picByte;
+	}
+
+
+	public void setPicByte(byte[] picByte) {
+		this.picByte = picByte;
+	}
+
 
 	public MovieTvShowDTO getMovieTvShow() {
 		return movieTvShow;

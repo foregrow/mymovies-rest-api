@@ -26,10 +26,13 @@ public class PersonMovieTvShowDTO {
 		actor = obj.isActor();
 		composer = obj.isComposer();
 		actorRole = obj.getActorRole();
-		if(obj.getMovieTvShow()!=null)
+		if(obj.getMovieTvShow()!=null) {
 			movieTvShow = new MovieTvShowDTO(obj.getMovieTvShow());
-		if(obj.getPerson()!=null)
+		}
+		if(obj.getPerson()!=null) {
 			person = new PersonDTO(obj.getPerson());
+			person.setPhotos(obj.getPerson().getPhotos());
+		}
 	}
 	
 	public PersonMovieTvShowDTO() {}
