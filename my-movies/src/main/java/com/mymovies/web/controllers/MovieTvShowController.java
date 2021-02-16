@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.services.MovieTvShowService;
+import com.mymovies.web.dtos.GenreDTO;
 import com.mymovies.web.dtos.MovieTvShowDTO;
 
 
@@ -81,7 +82,8 @@ public class MovieTvShowController {
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody MovieTvShowDTO dto){
-
+		for(GenreDTO g : dto.getGenres())
+			System.out.println(g.getType());
 		MovieTvShow obj = mtss.create(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);

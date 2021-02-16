@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mymovies.enums.GenreType;
 import com.mymovies.models.Genre;
 import com.mymovies.repositories.GenreRepository;
 import com.mymovies.services.EntityInstanceService;
@@ -75,6 +76,19 @@ public class GenreServiceImpl implements GenreService {
 		GenreDTO dto = new GenreDTO(obj);
 		dto.setMoviesTvShows(obj.getMoviesTvShows());
 		return dto;
+	}
+
+
+	@Override
+	public Genre getByType(GenreType type) {
+		return gr.getByType(type);
+	}
+
+
+	@Override
+	public void save(Genre g) {
+		gr.save(g);
+		
 	}
 	
 	
