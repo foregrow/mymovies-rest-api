@@ -46,6 +46,16 @@ public class UserMovieTvShowController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/emailmts/{email}/{mtsid}", method=RequestMethod.GET)
+	public ResponseEntity<?> getByEmailAndMTSId(@PathVariable String email,@PathVariable long mtsid){
+		UserMovieTvShow obj = umtss.findByUserEmailAndMovieTvShowId(email, mtsid);
+		if(obj == null)
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		
+		UserMovieTvShowDTO dto = umtss.getSingleDTO(obj);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody UserMovieTvShowDTO dto){
 
