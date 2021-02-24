@@ -64,7 +64,6 @@ public class MovieTvShowController {
 
 		List<MovieTvShow> moviestvshows = mtss.findAllByNameContains(name);	
 		List<MovieTvShowDTO> dtos = mtss.getAllDTOs(moviestvshows);		
-		System.out.println(dtos.size());
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
@@ -82,8 +81,7 @@ public class MovieTvShowController {
 	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody MovieTvShowDTO dto){
-		for(GenreDTO g : dto.getGenres())
-			System.out.println(g.getType());
+		
 		MovieTvShow obj = mtss.create(dto);
 		if(obj==null)
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
