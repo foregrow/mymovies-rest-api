@@ -29,6 +29,7 @@ public class MovieTvShowDTO {
 	private MovieTvShowType type; //movie or tv show
 	private String country;
 	private String language;
+	private double avgRating;
 	
 	private List<TrailerDTO> trailers = new ArrayList<TrailerDTO>(); //many to one
 	private List<SeasonDTO> seasons = new ArrayList<SeasonDTO>(); //many to one
@@ -50,6 +51,7 @@ public class MovieTvShowDTO {
 		type = obj.getType();
 		country = obj.getCountry();
 		language = obj.getLanguage();
+		avgRating = obj.getAvgRating();
 	}
 
 	public MovieTvShowDTO(long id, String name, String description, String storyline, int lengthMinutes, Date releaseDate,
@@ -158,6 +160,14 @@ public class MovieTvShowDTO {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
 	}
 
 	public List<TrailerDTO> getTrailers() {

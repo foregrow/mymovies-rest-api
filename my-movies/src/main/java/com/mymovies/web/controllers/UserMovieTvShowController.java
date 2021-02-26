@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.UserMovieTvShow;
+import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.UserMovieTvShowService;
+import com.mymovies.web.dtos.MovieTvShowDTO;
 import com.mymovies.web.dtos.UserMovieTvShowDTO;
 
 
@@ -26,6 +29,9 @@ public class UserMovieTvShowController {
 
 	@Autowired
 	UserMovieTvShowService umtss;
+	
+	@Autowired
+	MovieTvShowService mtss;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
@@ -65,6 +71,15 @@ public class UserMovieTvShowController {
 		
 		UserMovieTvShowDTO responseObj = umtss.getSingleDTO(obj);
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/user-rating/{email}/{mtsId}/{newRating}", method=RequestMethod.GET)
+	public ResponseEntity<?> userRating(@PathVariable String email, @PathVariable long mtsId, @PathVariable int newRating){
+		umtss.newUserRating(email, mtsId, newRating);
+		mtss.calculateMTSAvgRating(newRating, mtsId);
+		//MovieTvShow mts = mtss.getById(mtsId);
+		//MovieTvShowDTO dto = mtss.getSingleDTO(mts);
+		return new ResponseEntity<>(newRating,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, consumes="application/json")

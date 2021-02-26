@@ -32,7 +32,6 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	
 	@Autowired
 	UserService us;
-	
 
 	@Override
 	public List<UserMovieTvShow> getAll() {
@@ -109,6 +108,26 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	@Override
 	public UserMovieTvShow findByUserEmailAndMovieTvShowId(String email, long mtsid) {
 		return umtsr.findByUserEmailAndMovieTvShowId(email, mtsid);
+	}
+	
+	
+	public void newUserRating(String email, long mtsId, int newRating) {
+		UserMovieTvShow umts = umtsr.findByUserEmailAndMovieTvShowId(email, mtsId);
+		if(umts==null) {
+			umts = new UserMovieTvShow();
+			MovieTvShow mts = mtss.getById(mtsId);
+			User user = us.findByEmail(email);
+			
+			umts.setMovieTvShow(mts);
+			umts.setUser(user);
+		}
+		umts.setUserRating(newRating);
+		umtsr.save(umts);
+	}
+
+	@Override
+	public List<UserMovieTvShow> findByMovieTvShowId(long mtsid) {
+		return umtsr.findByMovieTvShowId(mtsid);
 	}
 	
 

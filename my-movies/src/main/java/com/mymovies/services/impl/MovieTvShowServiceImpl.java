@@ -2,8 +2,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
-
-
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +12,18 @@ import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.Genre;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Trailer;
+import com.mymovies.models.UserMovieTvShow;
 import com.mymovies.repositories.MovieTvShowRepository;
 import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.GenreService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.TrailerService;
+import com.mymovies.services.UserMovieTvShowService;
 import com.mymovies.web.dtos.GenreDTO;
+import com.mymovies.web.dtos.ImdbMovieDTO;
 import com.mymovies.web.dtos.MovieTvShowDTO;
 import com.mymovies.web.dtos.TrailerDTO;
+
 @Service
 public class MovieTvShowServiceImpl implements MovieTvShowService {
 
@@ -35,6 +38,10 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	
 	@Autowired
 	GenreService gs;
+	
+	@Autowired
+	UserMovieTvShowService umtss;
+	
 	@Override
 	public List<MovieTvShow> getAll() {
 		return mtsr.findAll();
@@ -48,6 +55,27 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	@Override
 	public MovieTvShow getById(long id) {
 		return mtsr.findById(id).orElse(null);
+	}
+	
+	@Override
+	public MovieTvShow saveImdbMovie(ImdbMovieDTO obj) {
+		MovieTvShow foundMts = mtsr.findByNameAndReleaseYearAndLengthMinutes(obj.getTitle(),obj.getYear(),obj.getLength());
+		if(obj!=null&&foundMts==null) {
+			MovieTvShow mts = new MovieTvShow();
+			mts.setReleaseYear(obj.getYear());
+			mts.setName(obj.getTitle());
+			mts.setLengthMinutes(obj.getLength());
+			if(obj.getType().equals("tvSeries"))
+				mts.setType(MovieTvShowType.TV_SHOW);
+			else
+				mts.setType(MovieTvShowType.MOVIE);
+			mts.setCountry("USA");
+			mts.setLanguage("ENG");
+			mts.setReleaseDate(new Date(obj.getYear()));
+			return mtsr.save(mts);
+			
+		}
+		return null;
 	}
 
 	@Override
@@ -63,6 +91,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 			mts.setType(obj.getType());
 			mts.setCountry(obj.getCountry());
 			mts.setLanguage(obj.getLanguage());
+			mts.setAvgRating(0);
 			mtsr.save(mts);
 			if(obj.getGenres().size()>0) {
 				Genre g = null;
@@ -90,6 +119,9 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 		}
 		return null;
 	}
+	
+	
+	
 
 	@Override
 	public void deleteById(long id) {
@@ -110,6 +142,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 				mts.setReleaseYear(obj.getReleaseYear());
 				mts.setCountry(obj.getCountry());
 				mts.setLanguage(obj.getLanguage());
+				mts.setAvgRating(obj.getAvgRating());
 				return mtsr.save(mts);
 			}
 		}
@@ -152,6 +185,27 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	public List<MovieTvShow> findAllByNameContains(String name) {
 		return mtsr.findByNameContains(name);
 	}
+
+	@Override
+	public MovieTvShow findByNameAndReleaseYearAndLengthMinutes(String name, int year, int length) {
+		return mtsr.findByNameAndReleaseYearAndLengthMinutes(name, year, length);
+	}
+	
+	public double calculateMTSAvgRating(int newRating,long mtsId) {
+		List<UserMovieTvShow> umtsList = umtss.findByMovieTvShowId(mtsId);
+		int counter = 0;
+		int sumRating = 0;
+		for(UserMovieTvShow umts : umtsList) {
+			sumRating+=umts.getUserRating();
+			counter++;
+		}
+		double avgRating = sumRating / counter;
+		MovieTvShow mts = mtsr.getOne(mtsId);
+		mts.setAvgRating(avgRating);
+		mtsr.save(mts);
+		return avgRating;
+	}
+
 
 	
 }

@@ -32,6 +32,7 @@ public class MovieTvShow   {
 	private MovieTvShowType type; //movie or tv show
 	private String country;
 	private String language;
+	private double avgRating;
 	
 	@OneToMany(mappedBy = "movieTvShow", cascade = CascadeType.REMOVE)
 	private Set<Trailer> trailers = new HashSet<Trailer>(); //many to one
@@ -61,7 +62,7 @@ public class MovieTvShow   {
 	}
 
 	public MovieTvShow(long id, String name, String description, String storyline, int lengthMinutes, Date releaseDate,
-			int releaseYear, MovieTvShowType type, String country, String language, Set<Trailer> trailers,
+			int releaseYear, MovieTvShowType type, String country, String language, double avgRating, Set<Trailer> trailers,
 			Set<Season> seasons, Set<Episode> episodes, Set<UserMovieTvShow> users, Set<PersonMovieTvShow> persons,
 			Set<Genre> genres, Set<Photo> photos) {
 		super();
@@ -75,6 +76,7 @@ public class MovieTvShow   {
 		this.type = type;
 		this.country = country;
 		this.language = language;
+		this.avgRating = avgRating;
 		this.trailers = trailers;
 		this.seasons = seasons;
 		this.episodes = episodes;
@@ -158,6 +160,14 @@ public class MovieTvShow   {
 
 	public String getLanguage() {
 		return language;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
 	}
 
 	public void setLanguage(String language) {

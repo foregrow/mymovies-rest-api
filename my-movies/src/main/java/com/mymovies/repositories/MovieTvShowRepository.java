@@ -12,4 +12,6 @@ public interface MovieTvShowRepository extends JpaRepository<MovieTvShow, Long> 
 	List<MovieTvShow> findAllByType(MovieTvShowType type);
 	
 	List<MovieTvShow> findByNameContains(String name);
+	
+	MovieTvShow findByNameAndReleaseYearAndLengthMinutes(String name, int year, int length);
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mymovies.enums.MovieTvShowType;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.services.MovieTvShowService;
-import com.mymovies.web.dtos.GenreDTO;
+import com.mymovies.web.dtos.ImdbMovieDTO;
 import com.mymovies.web.dtos.MovieTvShowDTO;
 
 
@@ -67,6 +67,18 @@ public class MovieTvShowController {
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/movie-data/{name}/{year}/{length}",method = RequestMethod.GET)
+	public ResponseEntity<?> getByMovieData(@PathVariable String name,@PathVariable int year,
+			@PathVariable int length) {
+
+		MovieTvShow mts = mtss.findByNameAndReleaseYearAndLengthMinutes(name, year, length);
+		if(mts==null)
+			return new ResponseEntity<>("not found",HttpStatus.NOT_FOUND);
+		
+		MovieTvShowDTO dto = mtss.getSingleDTO(mts);
+	
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 	
 	@RequestMapping(value={"/{id}","/{id}/{type}"}, method=RequestMethod.GET)
 	public ResponseEntity<?> getById(@PathVariable long id,@PathVariable(required = false) String type){
@@ -114,6 +126,15 @@ public class MovieTvShowController {
 			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		
 	}
+	
+	@RequestMapping(value = "/add-imdb-movies", method = RequestMethod.POST,consumes="application/json")
+	public ResponseEntity<?> addImdbMovies(@RequestBody List<ImdbMovieDTO> imdbmovies) {
+		
+		for(ImdbMovieDTO dto : imdbmovies) {
+			mtss.saveImdbMovie(dto);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.OK);	}
 
 
 }
