@@ -12,5 +12,7 @@ public interface UserMovieTvShowRepository extends JpaRepository< UserMovieTvSho
 
 	UserMovieTvShow findByUserEmailAndMovieTvShowId(String email, long mtsid);
 	
+	UserMovieTvShow findByUserEmail(String email);
+	
 	List<UserMovieTvShow> findByMovieTvShowId(long mtsid);
 }

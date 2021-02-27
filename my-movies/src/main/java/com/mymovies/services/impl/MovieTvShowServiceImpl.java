@@ -49,7 +49,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	
 	@Override
 	public List<MovieTvShow> findAllByType(MovieTvShowType type) {
-		return mtsr.findAllByType(type);
+		return mtsr.findAllByTypeOrderByAvgRatingDesc(type);
 	}
 
 	@Override

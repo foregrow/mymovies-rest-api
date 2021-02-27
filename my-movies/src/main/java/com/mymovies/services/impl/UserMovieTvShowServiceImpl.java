@@ -3,11 +3,13 @@ package com.mymovies.services.impl;
 import java.util.ArrayList;
 
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mymovies.MyMoviesApplication;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.User;
 import com.mymovies.models.UserMovieTvShow;
@@ -32,6 +34,9 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	
 	@Autowired
 	UserService us;
+	
+	 
+
 
 	@Override
 	public List<UserMovieTvShow> getAll() {
@@ -110,8 +115,8 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 		return umtsr.findByUserEmailAndMovieTvShowId(email, mtsid);
 	}
 	
-	
-	public void newUserRating(String email, long mtsId, int newRating) {
+	@Override
+	public void updateDetails(String email, long mtsId, int newRating,String param, boolean wlParam) {
 		UserMovieTvShow umts = umtsr.findByUserEmailAndMovieTvShowId(email, mtsId);
 		if(umts==null) {
 			umts = new UserMovieTvShow();
@@ -121,7 +126,12 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 			umts.setMovieTvShow(mts);
 			umts.setUser(user);
 		}
-		umts.setUserRating(newRating);
+		if(param.equals("newRating"))
+			umts.setUserRating(newRating);
+		else if(param.equals("watchlist"))
+			umts.setWatchlist(wlParam);
+		else if(param.equals("watchlater"))
+			umts.setWatchLater(wlParam);
 		umtsr.save(umts);
 	}
 
@@ -129,6 +139,12 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	public List<UserMovieTvShow> findByMovieTvShowId(long mtsid) {
 		return umtsr.findByMovieTvShowId(mtsid);
 	}
+
+	@Override
+	public UserMovieTvShow findByUserEmail(String email) {
+		return umtsr.findByUserEmail(email);
+	}
+
 	
 
 }

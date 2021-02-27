@@ -9,7 +9,8 @@ import com.mymovies.models.MovieTvShow;
 
 public interface MovieTvShowRepository extends JpaRepository<MovieTvShow, Long> {
 
-	List<MovieTvShow> findAllByType(MovieTvShowType type);
+	List<MovieTvShow> findAllByTypeOrderByAvgRatingDesc(MovieTvShowType type);
+	
 	
 	List<MovieTvShow> findByNameContains(String name);
 	

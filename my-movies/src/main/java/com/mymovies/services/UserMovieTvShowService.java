@@ -11,5 +11,9 @@ public interface UserMovieTvShowService extends CrudService<UserMovieTvShow, Use
 	
 	List<UserMovieTvShow> findByMovieTvShowId(long mtsid);
 	
-	void newUserRating(String email, long mtsId, int newRating);
+	void updateDetails(String email, long mtsId, int newRating,String param, boolean wlParam);
+	
+	UserMovieTvShow findByUserEmail(String email);
+	
+	
 }

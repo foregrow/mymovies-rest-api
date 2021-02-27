@@ -50,6 +50,17 @@ public class UserController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/user-email/{email}", method=RequestMethod.GET)
+	public ResponseEntity<?> getByEmail(@PathVariable String email){
+		User obj = us.findByEmail(email);
+		
+		if(obj == null)
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		
+		UserDTO dto = us.getSingleDTO(obj);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody UserDTO dto){
 
