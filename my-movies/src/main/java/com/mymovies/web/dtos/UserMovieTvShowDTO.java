@@ -22,8 +22,11 @@ public class UserMovieTvShowDTO {
 		reviewed = obj.isReviewed();
 		userReview = obj.getUserReview();
 		
-		if(obj.getMovieTvShow()!=null)
+		if(obj.getMovieTvShow()!=null) {
 			movieTvShow = new MovieTvShowDTO(obj.getMovieTvShow());
+			movieTvShow.setPhotos(obj.getMovieTvShow().getPhotos());
+		}
+			
 		if(obj.getUser()!=null)
 			user = new UserDTO(obj.getUser());
 	}

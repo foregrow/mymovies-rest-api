@@ -28,8 +28,10 @@ public class UserDTO {
 		password = obj.getPassword();
 		userRole = obj.getUserRole();
 		
-		if(obj.getPhoto()!=null)
+		if(obj.getPhoto()!=null) {
 			photo = new PhotoDTO(obj.getPhoto());
+		}
+			
 	}
 	
 	public UserDTO() {}
