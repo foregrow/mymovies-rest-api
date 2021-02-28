@@ -3,6 +3,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mymovies.MyMoviesApplication;
 import com.mymovies.models.UserMovieTvShow;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.UserMovieTvShowService;
@@ -34,8 +34,8 @@ public class UserMovieTvShowController {
 	@Autowired
 	MovieTvShowService mtss;
 	
-	@Value("${param.newRating}")
-	 private static String newRating;
+	@Value("${newRating}")
+	 private String newRatingParam;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
@@ -66,16 +66,6 @@ public class UserMovieTvShowController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
-	/*@RequestMapping(value="/user-email/{email}", method=RequestMethod.GET)
-	public ResponseEntity<?> getByEmail(@PathVariable String email){
-		UserMovieTvShow obj = umtss.findByUserEmail(email);
-		if(obj == null)
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		
-		UserMovieTvShowDTO dto = umtss.getSingleDTO(obj);
-		return new ResponseEntity<>(dto, HttpStatus.OK);
-	}*/
-	
 	@RequestMapping(method=RequestMethod.POST, consumes="application/json")
 	public ResponseEntity<?> save(@RequestBody UserMovieTvShowDTO dto){
 
@@ -92,7 +82,7 @@ public class UserMovieTvShowController {
 			@PathVariable String param,@PathVariable boolean wlParam){
 		umtss.updateDetails(email, mtsId, newRating,param,wlParam);
 
-		if(param.equals("newRating"))
+		if(param.equals(newRatingParam))
 			mtss.calculateMTSAvgRating(newRating, mtsId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -2,6 +2,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.mymovies.models.Person;
 import com.mymovies.repositories.PersonRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.PersonService;
 import com.mymovies.web.dtos.PersonDTO;
 @Service
@@ -21,8 +21,6 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	PersonRepository pr;
 	
-	@Autowired
-	EntityInstanceService fe;
 	
 	@Override
 	public List<Person> getAll() {
@@ -39,7 +37,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person create(PersonDTO obj) {
 		if(obj!=null) {
-			Person p = (Person) fe.getEntityByDTO(obj);
+			Person p = new Person();
 			p.setFirstName(obj.getFirstName());
 			p.setLastName(obj.getLastName());
 			p.setBio(obj.getBio());

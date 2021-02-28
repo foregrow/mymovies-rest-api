@@ -3,6 +3,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 
@@ -13,7 +14,6 @@ import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Person;
 import com.mymovies.models.PersonMovieTvShow;
 import com.mymovies.repositories.PersonMovieTvShowRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.PersonMovieTvShowService;
 import com.mymovies.services.PersonService;
@@ -30,9 +30,6 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 	@Autowired
 	PersonService ps;
 	
-	@Autowired
-	EntityInstanceService eis;
-
 	@Override
 	public List<PersonMovieTvShow> getAll() {
 		return pmtsr.findAll();
@@ -50,7 +47,7 @@ public class PersonMovieTvShowServiceImpl implements PersonMovieTvShowService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			Person person = ps.getById(obj.getPerson().getId());
 			if(mts!=null&&person!=null) {
-				PersonMovieTvShow pm = (PersonMovieTvShow) eis.getEntityByDTO(obj);
+				PersonMovieTvShow pm = new PersonMovieTvShow();
 				pm.setCastName(obj.getCastName());
 				pm.setDirector(obj.isDirector());
 				pm.setActor(obj.isActor());

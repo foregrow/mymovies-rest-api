@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.mymovies.MyMoviesApplication;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.User;
 import com.mymovies.models.UserMovieTvShow;
 import com.mymovies.repositories.UserMovieTvShowRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.UserMovieTvShowService;
 import com.mymovies.services.UserService;
@@ -27,17 +28,18 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 	UserMovieTvShowRepository umtsr;
 	
 	@Autowired
-	EntityInstanceService eis;
-	
-	@Autowired
 	MovieTvShowService mtss;
 	
 	@Autowired
 	UserService us;
 	
+	@Value("${newRating}")
+	 private String newRatingParam;
+	 @Value("${watchlist}")
+	 private String watchlistParam;
+	 @Value("${watchlater}")
+	 private String watchlaterParam;
 	 
-
-
 	@Override
 	public List<UserMovieTvShow> getAll() {
 		return umtsr.findAll();
@@ -54,7 +56,7 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			User user = us.getById(obj.getUser().getId());
 			if(mts!=null&&user!=null) {
-				UserMovieTvShow umts = (UserMovieTvShow) eis.getEntityByDTO(obj);
+				UserMovieTvShow umts = new UserMovieTvShow();
 				umts.setUserRating(obj.getUserRating());
 				umts.setWatchLater(obj.isWatchLater());
 				umts.setWatchlist(obj.isWatchlist());
@@ -126,11 +128,11 @@ public class UserMovieTvShowServiceImpl implements UserMovieTvShowService {
 			umts.setMovieTvShow(mts);
 			umts.setUser(user);
 		}
-		if(param.equals("newRating"))
+		if(param.equals(newRatingParam))
 			umts.setUserRating(newRating);
-		else if(param.equals("watchlist"))
+		else if(param.equals(watchlistParam))
 			umts.setWatchlist(wlParam);
-		else if(param.equals("watchlater"))
+		else if(param.equals(watchlaterParam))
 			umts.setWatchLater(wlParam);
 		umtsr.save(umts);
 	}

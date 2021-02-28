@@ -1,6 +1,7 @@
 package com.mymovies.services.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.mymovies.enums.GenreType;
 import com.mymovies.models.Genre;
 import com.mymovies.repositories.GenreRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.GenreService;
 import com.mymovies.web.dtos.GenreDTO;
 @Service
@@ -19,9 +19,7 @@ public class GenreServiceImpl implements GenreService {
 
 	@Autowired
 	GenreRepository gr;
-	
-	@Autowired
-	EntityInstanceService eis;
+
 
 	@Override
 	public List<Genre> getAll() {
@@ -37,7 +35,7 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public Genre create(GenreDTO obj) {
 		if(obj!=null) {
-			Genre genre = (Genre) eis.getEntityByDTO(obj);
+			Genre genre = new Genre();
 			genre.setType(obj.getType());
 			
 			return gr.save(genre);

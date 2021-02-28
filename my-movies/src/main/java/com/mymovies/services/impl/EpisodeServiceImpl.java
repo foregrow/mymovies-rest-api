@@ -2,6 +2,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 
@@ -12,7 +13,6 @@ import com.mymovies.models.Episode;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Season;
 import com.mymovies.repositories.EpisodeRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.EpisodeService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.SeasonService;
@@ -30,9 +30,6 @@ public class EpisodeServiceImpl implements EpisodeService {
 	
 	@Autowired
 	MovieTvShowService mtss;
-	
-	@Autowired
-	EntityInstanceService eis;
 	
 	@Override
 	public List<Episode> getAll() {
@@ -52,7 +49,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			Season s = ss.getById(obj.getSeason().getId());
 			if(mts!=null&&s!=null) {
-				Episode es = (Episode) eis.getEntityByDTO(obj);
+				Episode es = new Episode();
 				es.setSerialNumber(obj.getSerialNumber());
 				es.setName(obj.getName());
 				es.setMovieTvShow(mts);

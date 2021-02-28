@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.List;
 
 
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.mymovies.models.Photo;
 import com.mymovies.models.User;
 import com.mymovies.repositories.UserRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.PhotoService;
 import com.mymovies.services.UserService;
 import com.mymovies.utils.PasswordBCrypt;
@@ -30,9 +30,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository ur;
-	
-	@Autowired
-	EntityInstanceService eis;
 
 	@Autowired
 	PhotoService ps;
@@ -50,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(UserDTO obj) {
 		if(obj!=null) {
-			User user = (User) eis.getEntityByDTO(obj);
+			User user = new User();
 			user.setEmail(obj.getEmail());
 			user.setPassword(PasswordBCrypt.hashPassword(obj.getPassword()));
 			user.setUserRole(obj.getUserRole());

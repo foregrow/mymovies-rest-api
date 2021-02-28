@@ -2,6 +2,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Season;
 import com.mymovies.repositories.SeasonRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.SeasonService;
 import com.mymovies.web.dtos.SeasonDTO;
@@ -23,9 +23,7 @@ public class SeasonServiceImpl implements SeasonService {
 	
 	@Autowired
 	MovieTvShowService mtss;
-	
-	@Autowired
-	EntityInstanceService eis;
+
 
 	@Override
 	public List<Season> getAll() {
@@ -42,7 +40,7 @@ public class SeasonServiceImpl implements SeasonService {
 		if(obj!=null&&obj.getMovieTvShow()!=null) {
 			MovieTvShow mts = mtss.getById(obj.getMovieTvShow().getId());
 			if(mts!=null) {
-				Season s = (Season) eis.getEntityByDTO(obj);
+				Season s = new Season();
 				s.setSerialNumber(obj.getSerialNumber());
 				s.setReleaseYear(obj.getReleaseYear());
 				s.setMovieTvShow(mts);

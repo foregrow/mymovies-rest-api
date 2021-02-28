@@ -1,6 +1,7 @@
 package com.mymovies.services.impl;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -9,16 +10,13 @@ import java.util.zip.Deflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.primitives.Bytes;
 import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Person;
 import com.mymovies.models.Photo;
 import com.mymovies.models.User;
 import com.mymovies.repositories.PhotoRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.PersonService;
 import com.mymovies.services.PhotoService;
@@ -29,9 +27,7 @@ public class PhotoServiceImpl implements PhotoService {
 
 	@Autowired
 	PhotoRepository pr;
-	
-	@Autowired
-	EntityInstanceService eis;
+
 
 	@Autowired
 	MovieTvShowService mtss;
@@ -67,7 +63,7 @@ public class PhotoServiceImpl implements PhotoService {
 		Photo p = new Photo();
 		p.setName(file.getOriginalFilename());
 		p.setType(file.getContentType());
-		byte[] bytes = null;
+		//byte[] bytes = null;
 		try {
 			//bytes = compressBytes(file.getBytes());
 			p.setPicByte(file.getBytes());

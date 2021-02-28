@@ -2,6 +2,7 @@ package com.mymovies.services.impl;
 
 import java.util.ArrayList;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import com.mymovies.models.MovieTvShow;
 import com.mymovies.models.Trailer;
 import com.mymovies.models.UserMovieTvShow;
 import com.mymovies.repositories.MovieTvShowRepository;
-import com.mymovies.services.EntityInstanceService;
 import com.mymovies.services.GenreService;
 import com.mymovies.services.MovieTvShowService;
 import com.mymovies.services.TrailerService;
@@ -29,9 +29,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 
 	@Autowired
 	MovieTvShowRepository mtsr;
-	
-	@Autowired
-	EntityInstanceService eis;
+
 	
 	@Autowired
 	TrailerService ts;
@@ -81,7 +79,7 @@ public class MovieTvShowServiceImpl implements MovieTvShowService {
 	@Override
 	public MovieTvShow create(MovieTvShowDTO obj) {
 		if(obj!=null) {
-			MovieTvShow mts = (MovieTvShow) eis.getEntityByDTO(obj);
+			MovieTvShow mts = new MovieTvShow();
 			mts.setName(obj.getName());
 			mts.setDescription(obj.getDescription());
 			mts.setStoryline(obj.getStoryline());
