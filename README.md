@@ -1,1 +1,1 @@
-# mymovies-rest-api
+# Mymovies REST API developed using Spring Framework in Java
